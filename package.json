@@ -12,7 +12,7 @@
   "homepage": "https://heydeacon.com",
   "repository": {
     "type": "git",
-    "url": "TODO: git+https://github.com/<owner>/docusaurus-plugin-deacon.git once the GitHub owner is chosen"
+    "url": "git+https://github.com/heydeacon/docusaurus-plugin-deacon.git"
   },
   "author": "Deacon <hello@heydeacon.com> (https://heydeacon.com)",
   "license": "MIT",
@@ -37,5 +37,8 @@
     "@docusaurus/types": "^3.10.2",
     "typescript": "^7.0.2",
     "vitest": "^5.0.5"
+  },
+  "bugs": {
+    "url": "https://github.com/heydeacon/docusaurus-plugin-deacon/issues"
   }
 }
