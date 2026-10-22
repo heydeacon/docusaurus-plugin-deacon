@@ -2,9 +2,9 @@
 
 Adds the [Deacon](https://heydeacon.com) chat widget to every page of a Docusaurus site.
 
-Deacon is an AI support agent for websites and apps. It answers questions from your own docs and content, and says when it doesn't know instead of guessing.
+Deacon is an AI support agent that answers questions from your own docs and content, and says when it doesn't know.
 
-You need a Deacon account. The free plan needs no card.
+You need a Deacon account, and there's a free plan.
 
 ## Install
 
@@ -23,7 +23,7 @@ export default {
 };
 ```
 
-To find your key, open Install from the button at the top of the Deacon dashboard. The snippet there has it in `data-key`, and it starts with `pk_`. If the key is missing, the build stops and says so.
+To find your key, open Install from the button at the top of the Deacon dashboard. The snippet there has it in `data-key`, and it starts with `pk_`. If the key is missing, or an option has the wrong type, the build stops and says why.
 
 Deacon only runs on the sites listed on Install. A listed domain covers its subdomains, so `example.com` covers `docs.example.com`. If your docs live somewhere else, such as `example.github.io`, add that address on Install too.
 

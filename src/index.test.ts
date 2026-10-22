@@ -19,6 +19,12 @@ describe('docusaurus-plugin-deacon', () => {
     });
   });
 
+  it('trims spaces pasted around the key', () => {
+    const plugin = deaconPlugin({}, { key: '  pk_test123\n' });
+
+    expect(plugin.injectHtmlTags().postBodyTags[0]?.attributes['data-key']).toBe('pk_test123');
+  });
+
   it('passes context to Deacon as the data-context attribute', () => {
     const plugin = deaconPlugin(
       {},
@@ -33,6 +39,20 @@ describe('docusaurus-plugin-deacon', () => {
     });
   });
 
+  it.each([
+    ['a string', 'plan=pro'],
+    ['an array', ['docs']],
+    ['an object with a nested value', { plan: { tier: 'pro' } }],
+    ['an object with a null value', { plan: null }],
+  ])('refuses a context that is %s', (_case, context) => {
+    expect(() => deaconPlugin({}, { key: 'pk_test123', context })).toThrow(
+      new Error(
+        'docusaurus-plugin-deacon: the "context" option must be an object whose values are ' +
+          'strings, numbers or booleans.',
+      ),
+    );
+  });
+
   it('holds back page views with the data-no-page-views attribute', () => {
     const plugin = deaconPlugin({}, { key: 'pk_test123', pageViews: false });
 
@@ -42,6 +62,12 @@ describe('docusaurus-plugin-deacon', () => {
       'data-no-page-views': true,
       async: true,
     });
+  });
+
+  it('refuses a pageViews that is not true or false', () => {
+    expect(() => deaconPlugin({}, { key: 'pk_test123', pageViews: 'false' })).toThrow(
+      new Error('docusaurus-plugin-deacon: the "pageViews" option must be true or false.'),
+    );
   });
 
   it.each([

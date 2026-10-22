@@ -1,3 +1,5 @@
+import type { Plugin } from '@docusaurus/types';
+
 export interface DeaconPluginOptions {
   /** Your Deacon key: the `data-key` value in the snippet on Install. */
   key: string;
@@ -27,17 +29,24 @@ export interface DeaconPlugin {
 
 const LOADER_SRC = 'https://heydeacon.com/widget/v1/loader.js';
 
-/**
- * Docusaurus calls this with the options from the site's config file, which may be plain
- * JavaScript, so nothing about them is taken on trust.
- */
-export default function deaconPlugin(
-  _context: unknown,
-  options: Partial<DeaconPluginOptions> = {},
-): DeaconPlugin {
-  const { key } = options;
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
 
-  if (typeof key !== 'string' || key.trim() === '') {
+function isScalar(value: unknown): value is string | number | boolean {
+  return typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean';
+}
+
+function isContext(value: unknown): value is Record<string, string | number | boolean> {
+  return isRecord(value) && Object.values(value).every(isScalar);
+}
+
+/** The options from the site's config file, which may be plain JavaScript, checked. */
+function parseOptions(options: unknown): DeaconPluginOptions {
+  const given = isRecord(options) ? options : {};
+  const key = typeof given.key === 'string' ? given.key.trim() : '';
+
+  if (key === '') {
     throw new Error(
       'docusaurus-plugin-deacon: the "key" option is missing. In Deacon, open Install ' +
         '(the button at the top of the dashboard) and copy the data-key value from the ' +
@@ -45,25 +54,45 @@ export default function deaconPlugin(
     );
   }
 
-  const attributes: Record<string, string | boolean> = {
+  const { context, pageViews } = given;
+
+  if (pageViews !== undefined && typeof pageViews !== 'boolean') {
+    throw new Error('docusaurus-plugin-deacon: the "pageViews" option must be true or false.');
+  }
+
+  if (context !== undefined && !isContext(context)) {
+    throw new Error(
+      'docusaurus-plugin-deacon: the "context" option must be an object whose values are ' +
+        'strings, numbers or booleans.',
+    );
+  }
+
+  return {
+    key,
+    ...(context === undefined ? {} : { context }),
+    ...(pageViews === undefined ? {} : { pageViews }),
+  };
+}
+
+/**
+ * The plugin Docusaurus loads from the site's config. It reads nothing from Docusaurus's
+ * load context, only its own options.
+ */
+export default function deaconPlugin(_loadContext: unknown, options: unknown): DeaconPlugin {
+  const { key, context, pageViews } = parseOptions(options);
+
+  const attributes = {
     src: LOADER_SRC,
     'data-key': key,
-  };
-
-  if (options.context !== undefined) {
-    attributes['data-context'] = JSON.stringify(options.context);
-  }
-
-  if (options.pageViews === false) {
-    attributes['data-no-page-views'] = true;
-  }
-
-  attributes.async = true;
+    ...(context === undefined ? {} : { 'data-context': JSON.stringify(context) }),
+    ...(pageViews === false ? { 'data-no-page-views': true } : {}),
+    async: true,
+  } satisfies ScriptTag['attributes'];
 
   return {
     name: 'docusaurus-plugin-deacon',
     injectHtmlTags() {
-      return { postBodyTags: [{ tagName: 'script', attributes }] };
+      return { postBodyTags: [{ tagName: 'script' as const, attributes }] };
     },
-  };
+  } satisfies Plugin;
 }
