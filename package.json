@@ -1,0 +1,41 @@
+{
+  "name": "docusaurus-plugin-deacon",
+  "version": "1.0.0",
+  "description": "Docusaurus plugin that adds the Deacon chat widget to every page of your docs.",
+  "keywords": [
+    "docusaurus",
+    "docusaurus-plugin",
+    "deacon",
+    "chat widget",
+    "support"
+  ],
+  "homepage": "https://heydeacon.com",
+  "repository": {
+    "type": "git",
+    "url": "TODO: git+https://github.com/<owner>/docusaurus-plugin-deacon.git once the GitHub owner is chosen"
+  },
+  "author": "Deacon <hello@heydeacon.com> (https://heydeacon.com)",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "prepack": "npm run build"
+  },
+  "peerDependencies": {
+    "@docusaurus/core": "^3.0.0"
+  },
+  "devDependencies": {
+    "@docusaurus/types": "^3.10.2",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.5"
+  }
+}
