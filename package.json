@@ -1,5 +1,5 @@
 {
-  "name": "docusaurus-plugin-deacon",
+  "name": "@heydeacon/docusaurus-plugin",
   "version": "1.0.0",
   "description": "Docusaurus plugin that adds the Deacon chat widget to every page of your docs.",
   "keywords": [
@@ -40,5 +40,8 @@
   },
   "bugs": {
     "url": "https://github.com/heydeacon/docusaurus-plugin-deacon/issues"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import deaconPlugin from './index.js';
 
-describe('docusaurus-plugin-deacon', () => {
+describe('@heydeacon/docusaurus-plugin', () => {
   it('adds the snippet from Install before </body>', () => {
     const plugin = deaconPlugin({}, { key: 'pk_test123' });
 
@@ -47,7 +47,7 @@ describe('docusaurus-plugin-deacon', () => {
   ])('refuses a context that is %s', (_case, context) => {
     expect(() => deaconPlugin({}, { key: 'pk_test123', context })).toThrow(
       new Error(
-        'docusaurus-plugin-deacon: the "context" option must be an object whose values are ' +
+        '@heydeacon/docusaurus-plugin: the "context" option must be an object whose values are ' +
           'strings, numbers or booleans.',
       ),
     );
@@ -66,7 +66,7 @@ describe('docusaurus-plugin-deacon', () => {
 
   it('refuses a pageViews that is not true or false', () => {
     expect(() => deaconPlugin({}, { key: 'pk_test123', pageViews: 'false' })).toThrow(
-      new Error('docusaurus-plugin-deacon: the "pageViews" option must be true or false.'),
+      new Error('@heydeacon/docusaurus-plugin: the "pageViews" option must be true or false.'),
     );
   });
 
@@ -77,7 +77,7 @@ describe('docusaurus-plugin-deacon', () => {
   ])('refuses a key that is %s', (_case, options) => {
     expect(() => deaconPlugin({}, options)).toThrow(
       new Error(
-        'docusaurus-plugin-deacon: the "key" option is missing. In Deacon, open Install ' +
+        '@heydeacon/docusaurus-plugin: the "key" option is missing. In Deacon, open Install ' +
           '(the button at the top of the dashboard) and copy the data-key value from the ' +
           'snippet. It starts with pk_.',
       ),

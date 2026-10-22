@@ -48,7 +48,7 @@ function parseOptions(options: unknown): DeaconPluginOptions {
 
   if (key === '') {
     throw new Error(
-      'docusaurus-plugin-deacon: the "key" option is missing. In Deacon, open Install ' +
+      '@heydeacon/docusaurus-plugin: the "key" option is missing. In Deacon, open Install ' +
         '(the button at the top of the dashboard) and copy the data-key value from the ' +
         'snippet. It starts with pk_.',
     );
@@ -57,12 +57,12 @@ function parseOptions(options: unknown): DeaconPluginOptions {
   const { context, pageViews } = given;
 
   if (pageViews !== undefined && typeof pageViews !== 'boolean') {
-    throw new Error('docusaurus-plugin-deacon: the "pageViews" option must be true or false.');
+    throw new Error('@heydeacon/docusaurus-plugin: the "pageViews" option must be true or false.');
   }
 
   if (context !== undefined && !isContext(context)) {
     throw new Error(
-      'docusaurus-plugin-deacon: the "context" option must be an object whose values are ' +
+      '@heydeacon/docusaurus-plugin: the "context" option must be an object whose values are ' +
         'strings, numbers or booleans.',
     );
   }
@@ -90,7 +90,7 @@ export default function deaconPlugin(_loadContext: unknown, options: unknown): D
   } satisfies ScriptTag['attributes'];
 
   return {
-    name: 'docusaurus-plugin-deacon',
+    name: '@heydeacon/docusaurus-plugin',
     injectHtmlTags() {
       return { postBodyTags: [{ tagName: 'script' as const, attributes }] };
     },

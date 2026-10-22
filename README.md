@@ -1,4 +1,4 @@
-# docusaurus-plugin-deacon
+# @heydeacon/docusaurus-plugin
 
 Adds the [Deacon](https://heydeacon.com) chat widget to every page of a Docusaurus site.
 
@@ -9,7 +9,7 @@ You need a Deacon account, and there's a free plan.
 ## Install
 
 ```sh
-npm install docusaurus-plugin-deacon
+npm install @heydeacon/docusaurus-plugin
 ```
 
 ## Set it up
@@ -19,7 +19,7 @@ Add the plugin to `docusaurus.config.js` (or `docusaurus.config.ts`) with your k
 ```js
 export default {
   // ...the rest of your config
-  plugins: [['docusaurus-plugin-deacon', { key: 'pk_your_widget_key' }]],
+  plugins: [['@heydeacon/docusaurus-plugin', { key: 'pk_your_widget_key' }]],
 };
 ```
 
@@ -40,7 +40,7 @@ When you run `npm start`, Install notices the widget on `localhost:3000` and let
 ```js
 plugins: [
   [
-    'docusaurus-plugin-deacon',
+    '@heydeacon/docusaurus-plugin',
     {
       key: 'pk_your_widget_key',
       context: { product: 'api', docsVersion: '3.2' },
