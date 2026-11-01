@@ -1,6 +1,6 @@
 {
   "name": "@heydeacon/docusaurus-plugin",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Docusaurus plugin that adds Deacon, an AI support chat that answers from your docs, to every page.",
   "keywords": [
     "docusaurus",
@@ -14,7 +14,7 @@
     "ask-ai",
     "support-chat"
   ],
-  "homepage": "https://heydeacon.com",
+  "homepage": "https://heydeacon.com/resources/docusaurus-ai-support-chat-widget",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/heydeacon/docusaurus-plugin-deacon.git"
